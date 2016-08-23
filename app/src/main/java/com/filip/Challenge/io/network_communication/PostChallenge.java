@@ -24,6 +24,7 @@ public class PostChallenge extends AsyncTask<Void, Void, String> {
     private String successfulyAdded = "";
     private ChallengeListItem challengeListItem;
 
+    private String aaaaaa;
     public PostChallenge(ChallengeListItem challengeListItem, Context context) {
         this.challengeListItem = challengeListItem;
         this.context = context;
