@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_android_facebook"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.filip.Challenge.AndroidFacebookActivity">
+
+
+    <com.facebook.login.widget.LoginButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="@+id/activity_android_facebook"
+        android:layout_marginLeft="62dp"
+        android:layout_marginStart="62dp"
+        tools:layout_constraintLeft_creator="1"
+        app:layout_constraintTop_toTopOf="@+id/activity_android_facebook"
+        tools:layout_constraintTop_creator="1"
+        app:layout_constraintRight_toRightOf="@+id/activity_android_facebook"
+        android:layout_marginRight="62dp"
+        android:layout_marginEnd="62dp"
+        tools:layout_constraintRight_creator="1"
+        app:layout_constraintBottom_toBottomOf="@+id/activity_android_facebook"
+        tools:layout_constraintBottom_creator="1"
+        android:id="@+id/fbLoginBtn" />
+</android.support.constraint.ConstraintLayout>
