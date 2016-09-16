@@ -5,12 +5,13 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.widget.Toast;
 
-import com.filip.Challenge.model.ChallengeLiveItem;
-import com.filip.Challenge.model.User;
 import com.filip.Challenge.io.sockets.ControlSocket;
 import com.filip.Challenge.io.sockets.DataSocket;
 
 import java.io.IOException;
+
+import model.ChallengeLiveItem;
+import model.User;
 
 /**
  * Created by FILIP on 19-Aug-16.

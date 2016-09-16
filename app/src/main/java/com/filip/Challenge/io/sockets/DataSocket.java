@@ -1,14 +1,14 @@
 package com.filip.Challenge.io.sockets;
 
 
-import com.filip.Challenge.model.ChallengeListItem;
-import com.filip.Challenge.model.ChallengeLiveItem;
-
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.LinkedList;
+
+import model.ChallengeListItem;
+import model.ChallengeLiveItem;
 
 /**
  * Created by FILIP on 08-Aug-16.
@@ -75,8 +75,10 @@ public class DataSocket extends Socket {
 
     public void sendChallenge(ChallengeListItem challengeListItem) throws IOException {
         if(challengeListItem == null) return;
+        Object o = challengeListItem;
         this.openObjectOutputStream();
-        objectOutputStream.writeObject(challengeListItem);
+//        objectOutputStream.writeObject(challengeListItem);
+        objectOutputStream.writeObject(o);
     }
 
     public void sendLiveChallenge(ChallengeLiveItem challengeLiveItem) throws IOException {

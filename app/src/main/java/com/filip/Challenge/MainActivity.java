@@ -4,16 +4,15 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
-import android.support.design.widget.TabLayout;
+import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -23,12 +22,14 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.facebook.login.LoginManager;
-import com.filip.Challenge.model.ChallengeListItem;
-import com.filip.Challenge.model.User;
+import com.filip.Challenge.io.network_communication.PostChallenge;
 import com.filip.Challenge.io.network_communication.PostChallengeLiveItem;
 import com.filip.Challenge.tab_fragments.ChallengesFragment;
 import com.filip.Challenge.tab_fragments.NowFragment;
 import com.filip.Challenge.tab_fragments.UpcomingFragment;
+
+import model.ChallengeListItem;
+import model.User;
 
 
 public class MainActivity extends AppCompatActivity implements NowFragment.OnFragmentInteractionListener,
@@ -112,8 +113,8 @@ public class MainActivity extends AppCompatActivity implements NowFragment.OnFra
                 if (!challenge.isEmpty()) {
                     listItem = new ChallengeListItem(challenge);
 //                    postoji mogucnost greske na listItem
-//                    PostChallenge postChallenge = new PostChallenge(listItem, getApplicationContext());
-//                    postChallenge.execute();
+                    PostChallenge postChallenge = new PostChallenge(listItem, getApplicationContext());
+                    postChallenge.execute();
 
                     dialog.cancel();
                 } else {

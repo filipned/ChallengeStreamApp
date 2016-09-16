@@ -4,14 +4,15 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.view.View;
 
-import com.filip.Challenge.model.ChallengeLiveItem;
-import com.filip.Challenge.model.User;
-import com.filip.Challenge.util.Convert;
 import com.filip.Challenge.io.sockets.ControlSocket;
 import com.filip.Challenge.io.sockets.DataSocket;
 import com.filip.Challenge.tab_fragments.NowFragment;
+import com.filip.Challenge.util.Convert;
 
 import java.util.LinkedList;
+
+import model.ChallengeLiveItem;
+import model.User;
 
 /**
  * Created by FILIP on 11-Aug-16.

@@ -4,13 +4,14 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.view.View;
 
-import com.filip.Challenge.model.ChallengeListItem;
-import com.filip.Challenge.util.Convert;
 import com.filip.Challenge.io.sockets.ControlSocket;
 import com.filip.Challenge.io.sockets.DataSocket;
 import com.filip.Challenge.tab_fragments.ChallengesFragment;
+import com.filip.Challenge.util.Convert;
 
 import java.util.LinkedList;
+
+import model.ChallengeListItem;
 
 /**
  * Created by FILIP on 14-Aug-16.
@@ -37,15 +38,15 @@ public class GetListChallenges extends AsyncTask<Object, Object, LinkedList<Chal
     protected LinkedList<ChallengeListItem> doInBackground(Object... voids) {
 
 //        try {
-//            controlSocket = new ControlSocket("localhost", 12000);
+//            controlSocket = new ControlSocket("192.168.43.134", 45000);
 ////          1. Salje se zahtjev za listu objekata ChallengeListItem preko kontrolne veze
 //            controlSocket.sendRequest(ControlSocket.LIST_CHALLENGES_REQUEST);
 ////          2. Prima se odgovor od servera preko kontrolne veze
 //            answer = controlSocket.recieveAnswer();
 ////          3. Provjeravamo da li je odgovor dobar
-//            if(answer == "good") {
+//            if(answer.equals("good")) {
 ////              4. Otvara se data soket i salje se odobrenje serveru za slanje podataka
-//                dataSocket = new DataSocket("localhost", 13000);
+//                dataSocket = new DataSocket("192.168.43.134", 46000);
 //                dataSocket.sendSignal();
 ////              5. Primamo listu objekata ChallengeListItem od servera
 //                listChallenges = dataSocket.recieveListChallenges();

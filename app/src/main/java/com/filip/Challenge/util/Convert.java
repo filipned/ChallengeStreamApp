@@ -9,10 +9,11 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.filip.Challenge.MainActivity;
-import com.filip.Challenge.model.ChallengeListItem;
-import com.filip.Challenge.model.ChallengeLiveItem;
 
 import java.util.LinkedList;
+
+import model.ChallengeListItem;
+import model.ChallengeLiveItem;
 
 /**
  * Created by FILIP on 31-Jul-16.
