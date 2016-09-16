@@ -22,6 +22,7 @@ public class DataSocket extends Socket {
     ObjectInputStream objectInputStream;
 
 
+
     public DataSocket(String ip, int port) throws IOException {
         super(ip, port);
     }
