@@ -24,6 +24,7 @@ import android.widget.TextView;
 import com.facebook.login.LoginManager;
 import com.filip.Challenge.io.network_communication.PostChallenge;
 import com.filip.Challenge.io.network_communication.PostChallengeLiveItem;
+import com.filip.Challenge.io.sockets.ControlSocket;
 import com.filip.Challenge.tab_fragments.ChallengesFragment;
 import com.filip.Challenge.tab_fragments.NowFragment;
 import com.filip.Challenge.tab_fragments.UpcomingFragment;
@@ -57,11 +58,12 @@ public class MainActivity extends AppCompatActivity implements NowFragment.OnFra
     private ChallengeListItem listItem;
     private PostChallengeLiveItem postChallengeLiveItem;
 
+    public static ControlSocket controlSocket;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -144,8 +146,8 @@ public class MainActivity extends AppCompatActivity implements NowFragment.OnFra
                 TextView textView = (TextView) ((ViewGroup) viewItem).getChildAt(0);
                 challengeName = textView.getText().toString();
 
-//                postChallengeLiveItem = new PostChallengeLiveItem(user, challengeName, streamDialog, getApplicationContext());
-//                postChallengeLiveItem.execute();
+                postChallengeLiveItem = new PostChallengeLiveItem(user, challengeName, streamDialog, MainActivity.this);
+                postChallengeLiveItem.execute();
 
 
             }
@@ -247,5 +249,12 @@ public class MainActivity extends AppCompatActivity implements NowFragment.OnFra
             }
             return null;
         }
+    }
+
+    /**
+     * Created by FILIP on 17-Sep-16.
+     */
+
+    public static class MyApplication {
     }
 }

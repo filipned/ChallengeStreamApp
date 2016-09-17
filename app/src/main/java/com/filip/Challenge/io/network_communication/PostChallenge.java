@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.widget.Toast;
 
+import com.filip.Challenge.MainActivity;
 import com.filip.Challenge.io.sockets.ControlSocket;
 import com.filip.Challenge.io.sockets.DataSocket;
 
@@ -11,20 +12,22 @@ import java.io.IOException;
 
 import model.ChallengeListItem;
 
+import static com.filip.Challenge.MainActivity.controlSocket;
+
 /**
  * Created by FILIP on 14-Aug-16.
  */
 
 public class PostChallenge extends AsyncTask<Void, Void, String> {
 
-    private ControlSocket controlSocket;
+//    private ControlSocket controlSocket;
     private DataSocket dataSocket;
     private Context context;
 
     private String answer;
     private String successfulyAdded = "/";
     private ChallengeListItem challengeListItem;
-
+    private MainActivity mainActivity;
 
     public PostChallenge(ChallengeListItem challengeListItem, Context context) {
         this.challengeListItem = challengeListItem;
@@ -34,7 +37,7 @@ public class PostChallenge extends AsyncTask<Void, Void, String> {
     @Override
     protected String doInBackground(Void... voids) {
         try {
-            controlSocket = new ControlSocket("192.168.43.134", 45000);
+//            controlSocket = new ControlSocket("192.168.43.134", 45000);
 //          1. Saljemo obavestenje o namjeri za slanje objekta ChallengeListItem
             controlSocket.sendChallengeRequest(ControlSocket.ADD_CHALLENGE_REQUEST);
 //          2. Primamo odgovor od servera
@@ -54,10 +57,7 @@ public class PostChallenge extends AsyncTask<Void, Void, String> {
 //            dataSocket.closeObjectDataStreams();
 //            controlSocket.close();
 //            dataSocket.close();
-            controlSocket.shutdownInput();
-            controlSocket.shutdownOutput();
-            dataSocket.shutdownOutput();
-            dataSocket.shutdownInput();
+
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -69,10 +69,12 @@ public class PostChallenge extends AsyncTask<Void, Void, String> {
 
     @Override
     protected void onPostExecute(String s) {
+
         if(s.equals("good"))
-            Toast.makeText(context, "Challenge added successfully!", Toast.LENGTH_SHORT);
+            Toast.makeText(context, "Challenge added successfully!", Toast.LENGTH_SHORT).show();
         else
-            Toast.makeText(context, "Adding challenge failed! Try again.", Toast.LENGTH_SHORT);
+            Toast.makeText(context, "Challenge already exist.", Toast.LENGTH_SHORT).show();
+
 
     }
 }

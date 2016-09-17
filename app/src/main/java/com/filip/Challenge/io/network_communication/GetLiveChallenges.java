@@ -9,10 +9,12 @@ import com.filip.Challenge.io.sockets.DataSocket;
 import com.filip.Challenge.tab_fragments.NowFragment;
 import com.filip.Challenge.util.Convert;
 
+import java.io.IOException;
 import java.util.LinkedList;
 
 import model.ChallengeLiveItem;
-import model.User;
+
+import static com.filip.Challenge.MainActivity.controlSocket;
 
 /**
  * Created by FILIP on 11-Aug-16.
@@ -24,7 +26,7 @@ public class GetLiveChallenges extends AsyncTask<Object, Object, LinkedList<Chal
     private LinkedList<View> liveChallengesViews = new LinkedList<>();
 
     private Context context;
-    private ControlSocket controlSocket;
+//    private ControlSocket controlSocket;
     private DataSocket dataSocket;
     private String answer;
 
@@ -37,27 +39,27 @@ public class GetLiveChallenges extends AsyncTask<Object, Object, LinkedList<Chal
 
     @Override
     protected LinkedList<ChallengeLiveItem> doInBackground(Object... voids) {
-//        try {
-//            controlSocket = new ControlSocket("localhost", 12000);
-////          1. Salje se zahtjev za listu live challenge-a preko kontrolne veze
-//            controlSocket.sendRequest(ControlSocket.LIVE_CHALLENGES_REQUEST);
-////          2. Prima se odgovor od servera preko kontrolne veze
-//            answer = controlSocket.recieveAnswer();
-////          3. Provjeravamo da li je odgovor dobar
-//            if(answer == "good") {
-////              4. Otvara se data soket i salje se odobrenje serveru za slanje podataka
-//                dataSocket = new DataSocket("localhost", 13000);
-//                dataSocket.sendSignal();
-////              5. Primamo listu objekata ChallengeLiveItem od servera
-//                liveChallenges = dataSocket.recieveLiveChallenges();
-//            } else {
-//                liveChallenges = null;
-//            }
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        } catch (ClassNotFoundException e) {
-//            e.printStackTrace();
-//        }
+        try {
+//            controlSocket = new ControlSocket("192.168.43.134", 45000);
+//          1. Salje se zahtjev za listu live challenge-a preko kontrolne veze
+            controlSocket.sendRequest(ControlSocket.LIVE_CHALLENGES_REQUEST);
+//          2. Prima se odgovor od servera preko kontrolne veze
+            answer = controlSocket.recieveAnswer();
+//          3. Provjeravamo da li je odgovor dobar
+            if(answer.equals("good")) {
+//              4. Otvara se data soket i salje se odobrenje serveru za slanje podataka
+                dataSocket = new DataSocket("192.168.43.134", 46000);
+                dataSocket.sendSignal();
+//              5. Primamo listu objekata ChallengeLiveItem od servera
+                liveChallenges = dataSocket.recieveLiveChallenges();
+            } else {
+                liveChallenges = null;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
 
 //        try {
 ////            zatvaramo kontrolnu vezu i vezu podataka
@@ -70,15 +72,15 @@ public class GetLiveChallenges extends AsyncTask<Object, Object, LinkedList<Chal
 //        }
 
 //        TESST OBJEKTI
-        User u1 = new User("Filip", "Nedovic");
-        User u2 = new User("Mitar", "Miric");
-
-        ChallengeLiveItem c1 = new ChallengeLiveItem(u1, "Live 1");
-        ChallengeLiveItem c2 = new ChallengeLiveItem(u2, "Live 2");
-
-//      2.Primaju se live Challenges
-        liveChallenges.add(c1);
-        liveChallenges.add(c2);
+//        User u1 = new User("Filip", "Nedovic");
+//        User u2 = new User("Mitar", "Miric");
+//
+//        ChallengeLiveItem c1 = new ChallengeLiveItem(u1, "Live 1");
+//        ChallengeLiveItem c2 = new ChallengeLiveItem(u2, "Live 2");
+//
+////      2.Primaju se live Challenges
+//        liveChallenges.add(c1);
+//        liveChallenges.add(c2);
 
         return liveChallenges;
     }

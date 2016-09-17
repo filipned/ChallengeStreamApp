@@ -9,9 +9,12 @@ import com.filip.Challenge.io.sockets.DataSocket;
 import com.filip.Challenge.tab_fragments.ChallengesFragment;
 import com.filip.Challenge.util.Convert;
 
+import java.io.IOException;
 import java.util.LinkedList;
 
 import model.ChallengeListItem;
+
+import static com.filip.Challenge.MainActivity.controlSocket;
 
 /**
  * Created by FILIP on 14-Aug-16.
@@ -25,7 +28,7 @@ public class GetListChallenges extends AsyncTask<Object, Object, LinkedList<Chal
     private ChallengesFragment challengesFragment;
     private Context context;
 
-    private ControlSocket controlSocket;
+//    private ControlSocket controlSocket;
     private DataSocket dataSocket;
     private String answer;
 
@@ -37,27 +40,27 @@ public class GetListChallenges extends AsyncTask<Object, Object, LinkedList<Chal
     @Override
     protected LinkedList<ChallengeListItem> doInBackground(Object... voids) {
 
-//        try {
+        try {
 //            controlSocket = new ControlSocket("192.168.43.134", 45000);
-////          1. Salje se zahtjev za listu objekata ChallengeListItem preko kontrolne veze
-//            controlSocket.sendRequest(ControlSocket.LIST_CHALLENGES_REQUEST);
-////          2. Prima se odgovor od servera preko kontrolne veze
-//            answer = controlSocket.recieveAnswer();
-////          3. Provjeravamo da li je odgovor dobar
-//            if(answer.equals("good")) {
-////              4. Otvara se data soket i salje se odobrenje serveru za slanje podataka
-//                dataSocket = new DataSocket("192.168.43.134", 46000);
-//                dataSocket.sendSignal();
-////              5. Primamo listu objekata ChallengeListItem od servera
-//                listChallenges = dataSocket.recieveListChallenges();
-//            } else {
-////              listChallenges = null;
-//            }
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        } catch (ClassNotFoundException e) {
-//            e.printStackTrace();
-//        }
+//          1. Salje se zahtjev za listu objekata ChallengeListItem preko kontrolne veze
+            controlSocket.sendRequest(ControlSocket.LIST_CHALLENGES_REQUEST);
+//          2. Prima se odgovor od servera preko kontrolne veze
+            answer = controlSocket.recieveAnswer();
+//          3. Provjeravamo da li je odgovor dobar
+            if(answer.equals("good")) {
+//              4. Otvara se data soket i salje se odobrenje serveru za slanje podataka
+                dataSocket = new DataSocket("192.168.43.134", 46000);
+                dataSocket.sendSignal();
+//              5. Primamo listu objekata ChallengeListItem od servera
+                listChallenges = dataSocket.recieveListChallenges();
+            } else {
+              listChallenges = null;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
 
 //        try {
 ////          zatvaramo kontrolnu vezu i vezu podataka
@@ -70,14 +73,14 @@ public class GetListChallenges extends AsyncTask<Object, Object, LinkedList<Chal
 //        }
 
 //        TEST OBJEKTI
-        ChallengeListItem c1 = new ChallengeListItem("First Challenge");
-        ChallengeListItem c2 = new ChallengeListItem("Second challenge");
-        ChallengeListItem c3 = new ChallengeListItem("Third challenge");
-
-//      2.Primaju se list Challenges
-        listChallenges.add(c1);
-        listChallenges.add(c2);
-        listChallenges.add(c3);
+//        ChallengeListItem c1 = new ChallengeListItem("First Challenge");
+//        ChallengeListItem c2 = new ChallengeListItem("Second challenge");
+//        ChallengeListItem c3 = new ChallengeListItem("Third challenge");
+//
+////      2.Primaju se list Challenges
+//        listChallenges.add(c1);
+//        listChallenges.add(c2);
+//        listChallenges.add(c3);
 
         return listChallenges;
     }

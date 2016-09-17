@@ -16,7 +16,7 @@ import model.ChallengeLiveItem;
 
 public class DataSocket extends Socket {
 
-    public static final boolean START_SENDING = true;
+    public static final Boolean START_SENDING = true;
 
     ObjectOutputStream objectOutputStream;
     ObjectInputStream objectInputStream;
@@ -46,8 +46,8 @@ public class DataSocket extends Socket {
 
     public void sendSignal() throws IOException {
         this.openObjectOutputStream();
-        this.openObjectInputStream();
-        objectOutputStream.writeBoolean(START_SENDING);
+
+        objectOutputStream.writeObject(START_SENDING);
     }
 
     public boolean recieveAnswer() throws IOException {
@@ -57,12 +57,14 @@ public class DataSocket extends Socket {
     }
 
     public LinkedList<ChallengeLiveItem> recieveLiveChallenges() throws IOException, ClassNotFoundException {
+        this.openObjectInputStream();
         LinkedList<ChallengeLiveItem> liveChallenges = new LinkedList<>();
         liveChallenges = (LinkedList<ChallengeLiveItem>) objectInputStream.readObject();
         return  liveChallenges;
     }
 
     public LinkedList<ChallengeListItem> recieveListChallenges() throws IOException, ClassNotFoundException {
+        this.openObjectInputStream();
         LinkedList<ChallengeListItem> listChallenges = new LinkedList<>();
         listChallenges = (LinkedList< ChallengeListItem>) objectInputStream.readObject();
         return  listChallenges;

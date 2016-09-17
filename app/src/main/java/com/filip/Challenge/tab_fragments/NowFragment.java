@@ -4,6 +4,7 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,7 +30,7 @@ public class NowFragment extends Fragment {
 
     private View nowFragmentView;
     private GetLiveChallenges getLiveChallenges;
-
+    private SwipeRefreshLayout swipeRefreshLayout;
 
     public NowFragment() {
         // Required empty public constructor
@@ -52,6 +53,7 @@ public class NowFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
     }
 
     @Override
@@ -59,6 +61,16 @@ public class NowFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         nowFragmentView = inflater.inflate(R.layout.fragment_now, container, false);
+
+        swipeRefreshLayout = (SwipeRefreshLayout) nowFragmentView.findViewById(R.id.swipeContainerLive);
+        swipeRefreshLayout.setOnRefreshListener(() -> {
+            getLiveChallenges = new GetLiveChallenges(this, getContext());
+            clearUI(R.id.mainContentNow);
+            getLiveChallenges.execute();
+            swipeRefreshLayout.setRefreshing(false);
+
+        });
+
 
         getLiveChallenges = new GetLiveChallenges(this, getContext());
         getLiveChallenges.execute();
@@ -74,6 +86,12 @@ public class NowFragment extends Fragment {
             liveChallengesContainer.addView(liveChallengesViews.get(i));
         }
     }
+
+    public void clearUI(int id) {
+        LinearLayout liveChallengesContainer = (LinearLayout) this.getView().findViewById(id);
+        liveChallengesContainer.removeAllViews();
+    }
+
 
 //    private Dialog drawStreamDialog() {
 //        Context context =  getContext();

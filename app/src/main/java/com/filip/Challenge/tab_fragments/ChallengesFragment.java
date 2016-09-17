@@ -4,6 +4,7 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,6 +29,7 @@ public class ChallengesFragment extends Fragment {
 
     private View challengesFragmentView;
     private GetListChallenges getListChallenges;
+    private SwipeRefreshLayout swipeRefreshLayout;
 
     public ChallengesFragment() {
         // Required empty public constructor
@@ -58,6 +60,14 @@ public class ChallengesFragment extends Fragment {
 //        Live challenge view-ovi se prikazuju u Now tabu
         challengesFragmentView = inflater.inflate(R.layout.fragment_challenges, container, false);
 
+        swipeRefreshLayout = (SwipeRefreshLayout) challengesFragmentView.findViewById(R.id.swipeContainerList);
+        swipeRefreshLayout.setOnRefreshListener(() -> {
+            getListChallenges = new GetListChallenges(this, getContext());
+            clearUI(R.id.mainContentChallenges);
+            getListChallenges.execute();
+            swipeRefreshLayout.setRefreshing(false);
+        });
+
         getListChallenges = new GetListChallenges(this, getContext());
         getListChallenges.execute();
 
@@ -70,6 +80,11 @@ public class ChallengesFragment extends Fragment {
         for (int i = 0; i < listChallengesViews.size(); i++) {
             listChallengesContainer.addView(listChallengesViews.get(i));
         }
+    }
+
+    public void clearUI(int id) {
+        LinearLayout liveChallengesContainer = (LinearLayout) this.getView().findViewById(id);
+        liveChallengesContainer.removeAllViews();
     }
 
     // TODO: Rename method, update argument and hook method into UI event

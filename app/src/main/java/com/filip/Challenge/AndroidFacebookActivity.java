@@ -67,7 +67,7 @@ public class AndroidFacebookActivity extends AppCompatActivity {
 
             @Override
             public void onError(FacebookException error) {
-                Toast.makeText(getApplicationContext(), "Some problems occurred! Check your internet connection!", Toast.LENGTH_LONG);
+                Toast.makeText(getApplicationContext(), "Some problems occurred! Check your internet connection!", Toast.LENGTH_LONG).show();
             }
         });
 
